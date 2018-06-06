@@ -2,7 +2,7 @@ startGame();
 
 function startGame() {
     setGameSettings();
-    var cards = createCards();
+    let cards = createCards();
     shuffleCards( cards );
     displayCards( placeholder, cards );
     handleClickEvents();
