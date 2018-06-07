@@ -1,9 +1,5 @@
 startGame();
 
-document.getElementsByClassName('start-again-btn').addEventListener('click', function (event) {
-    startGame();
-});
-
 function startGame() {
     const setting = setGameSettings();
     let cards = createCards(setting.numberCards);
@@ -146,6 +142,9 @@ function showSuccessMessage() {
                     </div>`;
 
     canvas.innerHTML = message;
+    document.getElementsByClassName('start-again-btn')[0].addEventListener('click', function (event) {
+        startGame();
+    });
 }
 
 //Shuffle array
