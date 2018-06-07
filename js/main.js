@@ -33,6 +33,16 @@ function createCards(numberCards) {
     return cards;
 }
 
+function displayCards(canvasClass, cards) {
+    const canvas = document.getElementsByClassName(canvasClass)[0];
+    let virtualDom = document.createDocumentFragment();
+    for( let card of cards ) {
+        virtualDom.appendChild(card);
+    }
+
+    canvas.appendChild(virtualDom);
+}
+
 //Shuffle array
 function shuffle(array) {
     var currentIndex = array.length,
