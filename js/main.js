@@ -1,18 +1,20 @@
 startGame();
 
 function startGame() {
-    const numberCards = setGameSettings();
-    let cards = createCards( numberCards );
+    const setting = setGameSettings();
+    let cards = createCards( setting.numberCards );
     cards = shuffle( cards );
-    displayCards( placeholder, cards );
+    displayCards( setting.canvasClass, cards );
     handleClickEvents();
 }
 
 function setGameSettings() {
-    //Later, we can let the user choose the number of cards to
-    // show in the grid, i.e. difficulty
-    const numberCards = 8;
-    return numberCards;
+    const settings = {
+        numberCards: 8, //Later, we can let the user choose the number of cards to show in the grid, i.e. difficulty
+        canvasClass: 'canvas'
+    };
+
+    return settings;
 }
 
 function createCards(numberCards) {
