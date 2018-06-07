@@ -44,7 +44,7 @@ function displayCards(canvasClass, cards) {
     for( let card of cards ) {
         virtualDom.appendChild(card);
     }
-
+    canvas.innerHTML = '';
     canvas.appendChild(virtualDom);
 }
 
