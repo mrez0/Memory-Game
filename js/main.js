@@ -62,6 +62,11 @@ function handleClickEvents(canvasClass) {
             return;
         }
 
+        //return if card was clicked before
+        if( event.target.classList.contains('flip') ) {
+            return;
+        }
+
         clickCount = 1;
 
         flipCard(event.target);
