@@ -6,6 +6,7 @@ function startGame() {
     cards = shuffle(cards);
     displayCards(setting.canvasClass, cards);
     handleClickEvents(setting.canvasClass);
+    showSuccessMessage();
 }
 
 function setGameSettings() {
@@ -134,6 +135,16 @@ function gameWin() {
 
 function showSuccessMessage() {
     let canvas = document.getElementsByClassName('canvas')[0];
+
+    let message =   `<div class="success-message">
+                        <h2>Congratulations!!!</h2>
+                        <p>You won the game</p>
+                        <button class="start-again-btn">Start again</button>
+                    </div>`;
+
+    canvas.innerHTML = message;
+
+
 }
 
 //Shuffle array
