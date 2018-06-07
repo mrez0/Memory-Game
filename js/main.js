@@ -51,6 +51,7 @@ function handleClickEvents(canvasClass) {
     const canvas = document.getElementsByClassName(canvasClass)[0];
     let flippedCards = 0;
     let clickCount = 0;
+
     canvas.addEventListener('click', function (event) {
         //If in progress of old event, return
         if( clickCount ) {
@@ -103,11 +104,14 @@ function cardsMatching() {
 
 function disableCards() {
     let [card1, card2] = document.getElementsByClassName('flip');
-    card1.classList.add('disable');
     card1.classList.remove('flip');
+    card1.classList.remove('card');
+    card1.classList.add('disable');
     card1.textContent = ' ';
-    card2.classList.add('disable');
+
     card2.classList.remove('flip');
+    card2.classList.remove('card');
+    card2.classList.add('disable');
     card2.textContent = ' ';
 }
 
