@@ -78,6 +78,11 @@ function handleClickEvents(canvasClass) {
             if( flippedCards > 1 ) {
                 if( cardsMatching() ) {
                     disableCards();
+
+                    if( gameWin() ) {
+                        showSuccessMessage();
+                    }
+
                 } else {
                     flipCardsDown();
                 }
@@ -121,6 +126,14 @@ function flipCardsDown() {
     card1.textContent = ' ';
     card2.classList.remove('flip');
     card2.textContent = ' ';
+}
+
+function gameWin() {
+    return document.getElementsByClassName('card').length == 0;
+}
+
+function showSuccessMessage() {
+    let canvas = document.getElementsByClassName('canvas')[0];
 }
 
 //Shuffle array
