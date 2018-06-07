@@ -22,17 +22,19 @@ function createCards(numberCards) {
 
     for (let x = 0; x < numberCards; x++) {
         //Creating 2 div elements with same number on each
-        let card = document.createElement('div');
-        card.textContent = x + 1; //Numbers on cards start with 1 not 0
-        card.classList.add('card');
-        cards.push(card);
-        card = document.createElement('div');
-        card.textContent = x + 1; //Numbers on cards start with 1 not 0
-        card.classList.add('card');
-        cards.push(card);
+        cards.push(createSinglCard(x));
+        cards.push(createSinglCard(x));
     }
 
     return cards;
+}
+
+function createSinglCard(number) {
+    let card = document.createElement('div');
+    card.number = number + 1; //Numbers on cards start with 1 not 0
+    card.textContent = ' ';
+    card.classList.add('card');
+    return card;
 }
 
 function displayCards(canvasClass, cards) {
@@ -83,6 +85,7 @@ function handleClickEvents(canvasClass) {
 
 function flipCard(card) {
     card.classList.add('flip');
+    card.textContent = card.number;
 }
 
 function cardsMatching() {
@@ -94,17 +97,21 @@ function cardsMatching() {
 }
 
 function disableCards() {
-    let flippedCards = document.getElementsByClassName('flip');
-    flippedCards[0].classList.add('disable');
-    flippedCards[0].classList.remove('flip');
-    flippedCards[0].classList.add('disable');
-    flippedCards[0].classList.remove('flip');
+    let [card1, card2] = document.getElementsByClassName('flip');
+    card1.classList.add('disable');
+    card1.classList.remove('flip');
+    card1.textContent = ' ';
+    card2.classList.add('disable');
+    card2.classList.remove('flip');
+    card2.textContent = ' ';
 }
 
 function flipCardsDown() {
     let [card1, card2] = document.getElementsByClassName('flip');
     card1.classList.remove('flip');
+    card1.textContent = ' ';
     card2.classList.remove('flip');
+    card2.textContent = ' ';
 }
 
 //Shuffle array
