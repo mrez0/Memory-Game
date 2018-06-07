@@ -1,12 +1,15 @@
 startGame();
 
+document.getElementsByClassName('start-again-btn').addEventListener('click', function (event) {
+    startGame();
+});
+
 function startGame() {
     const setting = setGameSettings();
     let cards = createCards(setting.numberCards);
     cards = shuffle(cards);
     displayCards(setting.canvasClass, cards);
     handleClickEvents(setting.canvasClass);
-    showSuccessMessage();
 }
 
 function setGameSettings() {
@@ -143,8 +146,6 @@ function showSuccessMessage() {
                     </div>`;
 
     canvas.innerHTML = message;
-
-
 }
 
 //Shuffle array
