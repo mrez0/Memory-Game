@@ -24,9 +24,11 @@ function createCards(numberCards) {
         //Creating 2 div elements with same number on each
         let card = document.createElement('div');
         card.textContent = x + 1; //Numbers on cards start with 1 not 0
+        card.classList.add('card');
         cards.push(card);
         card = document.createElement('div');
         card.textContent = x + 1; //Numbers on cards start with 1 not 0
+        card.classList.add('card');
         cards.push(card);
     }
 
