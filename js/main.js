@@ -47,21 +47,64 @@ function displayCards(canvasClass, cards) {
 
 function handleClickEvents(canvasClass) {
     const canvas = document.getElementsByClassName(canvasClass)[0];
+    let flippedCards = 0;
     let clickCount = 0;
     canvas.addEventListener('click', function (event) {
-        flipCard(event.target);
-        if( ++clickCount > 1 ) {
-            if( cardsMatching() ) {
-                disableCards();
-            } else {
-                flipCardsDown();
-            }
+        //If in progress of old event, return
+        if( clickCount ) {
+            return;
         }
+
+        //return if click not emitted from a card
+        if( event.target.tagName != 'DIV' || ! event.target.classList.contains('card') ) {
+            return;
+        }
+
+        clickCount = 1;
+
+        flipCard(event.target);
+        ++flippedCards;
+
+        //Check cards after transiton finish
+        event.target.addEventListener('transitionend', function () {
+            if( flippedCards > 1 ) {
+                if( cardsMatching() ) {
+                    disableCards();
+                } else {
+                    flipCardsDown();
+                }
+
+                flippedCards = 0;
+            }
+            clickCount = 0;
+        });
     });
 }
 
 function flipCard(card) {
     card.classList.add('flip');
+}
+
+function cardsMatching() {
+    let flippedCards = document.getElementsByClassName('flip');
+    let val1 = flippedCards[0].innerHTML;
+    let val2 = flippedCards[1].innerHTML;
+
+    return val1 === val2;
+}
+
+function disableCards() {
+    let flippedCards = document.getElementsByClassName('flip');
+    flippedCards[0].classList.add('disable');
+    flippedCards[0].classList.remove('flip');
+    flippedCards[0].classList.add('disable');
+    flippedCards[0].classList.remove('flip');
+}
+
+function flipCardsDown() {
+    let [card1, card2] = document.getElementsByClassName('flip');
+    card1.classList.remove('flip');
+    card2.classList.remove('flip');
 }
 
 //Shuffle array
