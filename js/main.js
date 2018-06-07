@@ -5,7 +5,7 @@ function startGame() {
     let cards = createCards(setting.numberCards);
     cards = shuffle(cards);
     displayCards(setting.canvasClass, cards);
-    handleClickEvents();
+    handleClickEvents(setting.canvasClass);
 }
 
 function setGameSettings() {
@@ -43,6 +43,21 @@ function displayCards(canvasClass, cards) {
     }
 
     canvas.appendChild(virtualDom);
+}
+
+function handleClickEvents(canvasClass) {
+    const canvas = document.getElementsByClassName(canvasClass)[0];
+    let clickCount = 0;
+    canvas.addEventListener('click', function (event) {
+        flipCard(event.target);
+        if( ++clickCount > 1 ) {
+            if( cardsMatching() ) {
+                disableCards();
+            } else {
+                flipCardsDown();
+            }
+        }
+    });
 }
 
 //Shuffle array
