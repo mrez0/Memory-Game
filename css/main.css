@@ -1,0 +1,26 @@
+* {
+    padding: 0;
+    margin: 0;
+    background-color: darkslategrey;
+}
+
+.canvas {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: cadetblue;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.card {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 2px auto;
+    width: 22%;
+    height: 80px;
+    text-align: center;
+    font-size: 4em;
+
+
+}
