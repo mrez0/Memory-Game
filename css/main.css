@@ -21,6 +21,14 @@
     height: 80px;
     text-align: center;
     font-size: 4em;
+    color: darkslategrey;
+    transform: rotateY(180deg);
+    transition: 0.6s;
+}
 
-
+.flip {
+    transform: rotateY(0deg);
+    color: black;
+    transition: 0.6s;
+    transform-style: preserve-3d;
 }

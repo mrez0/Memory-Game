@@ -60,6 +60,10 @@ function handleClickEvents(canvasClass) {
     });
 }
 
+function flipCard(card) {
+    card.classList.add('flip');
+}
+
 //Shuffle array
 function shuffle(array) {
     var currentIndex = array.length,
