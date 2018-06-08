@@ -7,6 +7,39 @@ body {
     background-color: darkslategrey;
 }
 
+.container {
+    padding: 10px;
+}
+
+.instructions {
+    background-color: aquamarine;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.instruction-details {
+    font-size: 0.8em;
+}
+
+.game-info {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.rating-box {
+    width: 100%;
+    color: antiquewhite;
+}
+
+.timer-box,
+.moves-box {
+    margin: 10px auto;
+    width: 40%;
+    background-color: yellow;
+    padding: 10px;
+    border-radius: 10px;
+}
+
 .stars {
     width: 200px;
     height: 43px;
@@ -20,7 +53,8 @@ body {
     background-color: cadetblue;
     border-radius: 5px;
     padding: 10px;
-    margin: 10px;
+    margin: 10px auto;
+    width: 90%;
 }
 
 .card {
@@ -63,4 +97,33 @@ body {
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
+}
+
+.start-again-btn {
+    padding: 10px;
+}
+
+@media screen and (min-width: 861px) {
+    .container {
+        width: 860px;
+        margin: auto;
+    }
+}
+
+
+@media screen and (max-width: 540px) {
+    .timer-box,
+    .moves-box {
+        width: 100%;
+    }
+    .instructions {
+        font-size: 1.5em;
+    }
+}
+
+
+@media screen and (max-width: 320px) {
+    * {
+        font-size: 1em;
+    }
 }
