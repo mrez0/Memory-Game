@@ -40,6 +40,15 @@ body {
     border-radius: 10px;
 }
 
+.restart-box {
+    width: 100%;
+    text-align: center;
+}
+
+.restart-btn {
+    padding: 10px;
+}
+
 .stars {
     width: 200px;
     height: 43px;
