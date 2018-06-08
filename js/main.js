@@ -18,7 +18,6 @@ let setting = {
 };
 
 let numberMoves = 0;
-
 let timer = null;
 let timeElapsed = 0;
 
@@ -71,53 +70,67 @@ function displayCards(canvasClass, cards) {
 
 function handleClickEvents(canvasClass) {
     const canvas = document.getElementsByClassName(canvasClass)[0];
-    let flippedCards = 0;
-    let clickCount = 0;
+    let   flippedCards = 0;     //counter to number of flipped cards
+    let   inClickEvent = false; //flag if we are in a click event
 
     canvas.addEventListener('click', function (event) {
-        //If in progress of old event, return
-        if( clickCount ) {
+        //return if:
+        //  in progress of previous click event,
+        //  or click not emitted from a card,
+        //  or user clicked on an already flipped card
+        if (!checkClickSource(inClickEvent, event)) {
             return;
         }
 
-        //return if click not emitted from a card
-        if( event.target.tagName != 'DIV' || ! event.target.classList.contains('card') ) {
-            return;
-        }
-
-        //return if card was clicked before
-        if( event.target.classList.contains('flip') ) {
-            return;
-        }
-
-        clickCount = 1;
-        numberMoves++;
+        inClickEvent = true;
+        numberMoves++; //increment number of user moves
 
         flipCard(event.target);
         ++flippedCards;
 
-        //Check cards after transiton finish
+        //Check cards after flip animation ends
         event.target.addEventListener('transitionend', function () {
+            //check if 2 cards are flipped to compare numbers
             if( flippedCards > 1 ) {
                 if( cardsMatching() ) {
                     disableCards();
 
+                    // Check if all cards are matched and user wins
                     if( gameWin() ) {
                         showSuccessMessage();
                     }
-
                 } else {
                     flipCardsDown();
                 }
 
                 flippedCards = 0;
             }
-            clickCount = 0;
+            inClickEvent = false;
         });
 
         calculateUserRating();
         updateNumberMoves();
     });
+}
+
+function checkClickSource(inClickEvent, event) {
+    //return false if in progress of previous click event
+    if (inClickEvent) {
+        return false;
+    }
+
+    //return false if click not emitted from a card
+    if (event.target.tagName != 'DIV' || !event.target.classList.contains('card')) {
+        return false;
+    }
+
+    //return false if user clicked on an already flipped card
+    if (event.target.classList.contains('flip')) {
+        return false;
+    }
+
+    //else, return true
+    return true;
 }
 
 function updateNumberMoves() {
