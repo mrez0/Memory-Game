@@ -7,6 +7,13 @@ body {
     background-color: darkslategrey;
 }
 
+.stars {
+    width: 200px;
+    height: 43px;
+    background: url(../img/stars.png) 0 0;
+    display: inline-block;
+}
+
 .canvas {
     display: flex;
     flex-wrap: wrap;

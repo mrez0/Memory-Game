@@ -99,7 +99,18 @@ function handleClickEvents(canvasClass) {
             }
             clickCount = 0;
         });
+
+        calculateUserRating();
     });
+}
+
+function calculateUserRating() {
+    let deduction = Math.floor( numberMoves / ( setting.numberCards * 3 ) );
+    let newRating = setting.userRating - deduction;
+    newRating = newRating > 0 ? newRating : 1;
+
+    let starsEl = document.getElementsByClassName('stars')[0];
+    starsEl.style.backgroundPositionY = 43 * newRating + 'px';
 }
 
 function flipCard(card) {
