@@ -91,6 +91,7 @@ function handleClickEvents(canvasClass) {
         }
 
         clickCount = 1;
+        numberMoves++;
 
         flipCard(event.target);
         ++flippedCards;
@@ -115,7 +116,12 @@ function handleClickEvents(canvasClass) {
         });
 
         calculateUserRating();
+        updateNumberMoves();
     });
+}
+
+function updateNumberMoves() {
+    document.getElementsByClassName('moves')[0].innerHTML = numberMoves;
 }
 
 function calculateUserRating() {
