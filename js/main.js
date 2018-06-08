@@ -178,13 +178,25 @@ function showSuccessMessage() {
     let message =   `<div class="success-message">
                         <h2>Congratulations!!!</h2>
                         <p>You won the game</p>
+                        <p>You took <span class="success-time">${document.getElementsByClassName('timer')[0].textContent} seconds</span> to complete the game</p>
+                        <p>Rating: <span class="success-stars stars"></span></p>
                         <button class="start-again-btn">Start again</button>
                     </div>`;
 
     canvas.innerHTML = message;
+    document.getElementsByClassName('success-stars')[0].style.backgroundPositionY = document.getElementById('main-rating').style.backgroundPositionY;
     document.getElementsByClassName('start-again-btn')[0].addEventListener('click', function (event) {
+        clearStats();
         startGame();
     });
+}
+
+function clearStats() {
+    numberMoves = 0;
+    timeElapsed = 0;
+    document.getElementById('main-rating').style.backgroundPositionY = '0px';
+    document.getElementsByClassName('timer')[0].textContent = 0;
+    document.getElementsByClassName('moves')[0].textContent = 0;
 }
 
 function stopTimer() {

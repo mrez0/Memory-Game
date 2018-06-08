@@ -94,6 +94,11 @@ body {
     animation: fadein 2s;
 }
 
+.success-time {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
