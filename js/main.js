@@ -16,6 +16,12 @@ let setting = {
     canvasClass: 'canvas',
     userRating: 5
 };
+
+let numberMoves = 0;
+
+let timer = null;
+let timeElapsed = 0;
+
 startGame();
 
 function startGame() {
@@ -23,6 +29,14 @@ function startGame() {
     cards = shuffle(cards);
     displayCards(setting.canvasClass, cards);
     handleClickEvents(setting.canvasClass);
+    startTimer();
+}
+
+function startTimer() {
+    timer = setInterval(function () {
+        timeElapsed++;
+        document.getElementsByClassName('timer')[0].innerHTML = timeElapsed;
+    }, 1000);
 }
 
 function createCards(numberCards) {
@@ -152,6 +166,7 @@ function gameWin() {
 }
 
 function showSuccessMessage() {
+    stopTimer();
     let canvas = document.getElementsByClassName('canvas')[0];
 
     let message =   `<div class="success-message">
@@ -164,6 +179,10 @@ function showSuccessMessage() {
     document.getElementsByClassName('start-again-btn')[0].addEventListener('click', function (event) {
         startGame();
     });
+}
+
+function stopTimer() {
+    clearInterval(timer);
 }
 
 //Shuffle array
