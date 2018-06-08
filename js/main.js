@@ -1,16 +1,3 @@
-/*
-v2.0 TODO:
-- The game displays a star rating (from 1 to at least 3) that reflects the player's performance. At the beginning of a game, it should display at least 3 stars. After some number of moves, it should change to a lower star rating. After a few more moves, it should change to a even lower star rating (down to 1). The number of moves needed to change the rating is up to you, but it should happen at some point.
-- When the player starts a game, a displayed timer should also start. Once the player wins the game, the timer stops.
-- Game displays the current number of moves a user has made.
-
-
-v3.0 TODO:
-- User can choose difficulty (Extreme Easy 2x2, Easy 3x3, medium 4x4, hard 5x5, Extreme Hard 6x6)
-- User can custom difficulty (XxX)
-- Show best score for difficulty
-*/
-
 let setting = {
     numberCards: 8, //Later, we can let the user choose the number of cards to show in the grid, i.e. difficulty
     canvasClass: 'canvas',
