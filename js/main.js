@@ -11,23 +11,18 @@ v3.0 TODO:
 - Show best score for difficulty
 */
 
+let setting = {
+    numberCards: 8, //Later, we can let the user choose the number of cards to show in the grid, i.e. difficulty
+    canvasClass: 'canvas',
+    userRating: 5
+};
 startGame();
 
 function startGame() {
-    const setting = setGameSettings();
     let cards = createCards(setting.numberCards);
     cards = shuffle(cards);
     displayCards(setting.canvasClass, cards);
     handleClickEvents(setting.canvasClass);
-}
-
-function setGameSettings() {
-    const settings = {
-        numberCards: 8, //Later, we can let the user choose the number of cards to show in the grid, i.e. difficulty
-        canvasClass: 'canvas'
-    };
-
-    return settings;
 }
 
 function createCards(numberCards) {
