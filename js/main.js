@@ -8,14 +8,27 @@ let numberMoves = 0;
 let timer = null;
 let timeElapsed = 0;
 
-startGame();
+setupGame();
+setEventHandlers();
 
-function startGame() {
+function setupGame() {
     let cards = createCards(setting.numberCards);
     cards = shuffle(cards);
     displayCards(setting.canvasClass, cards);
-    handleClickEvents(setting.canvasClass);
     startTimer();
+}
+
+function setEventHandlers() {
+    //restart button handler
+    document.getElementsByClassName('restart-btn')[0].addEventListener('click', function () {
+        let answer = confirm('Are you sure you want to restart the game?');
+        if( answer ) {
+            clearStats();
+            setupGame();
+        }
+    });
+
+    handleGameEvents(setting.canvasClass);
 }
 
 function startTimer() {
@@ -47,56 +60,59 @@ function createSinglCard(number) {
 
 function displayCards(canvasClass, cards) {
     const canvas = document.getElementsByClassName(canvasClass)[0];
+    canvas.innerHTML = '';
     let virtualDom = document.createDocumentFragment();
     for( let card of cards ) {
         virtualDom.appendChild(card);
     }
-    canvas.innerHTML = '';
+
     canvas.appendChild(virtualDom);
 }
 
-function handleClickEvents(canvasClass) {
+function handleGameEvents(canvasClass) {
     const canvas = document.getElementsByClassName(canvasClass)[0];
-    let   flippedCards = 0;     //counter to number of flipped cards
-    let   inClickEvent = false; //flag if we are in a click event
+
+    //We are setting these variables in canvas DOM element because we need them later in 'clearStats' function to reset them back to defaults
+    canvas.flippedCards = 0;     //counter to number of flipped cards
+    canvas.inClickEvent = false; //flag if we are in a click event
 
     canvas.addEventListener('click', function (event) {
         //return if:
         //  in progress of previous click event,
         //  or click not emitted from a card,
         //  or user clicked on an already flipped card
-        if (!checkClickSource(inClickEvent, event)) {
+        if (!checkClickSource(canvas.inClickEvent, event)) {
             return;
         }
 
-        inClickEvent = true;
+        canvas.inClickEvent = true;
         numberMoves++; //increment number of user moves
 
         flipCard(event.target);
-        ++flippedCards;
-
-        //Check cards after flip animation ends
-        event.target.addEventListener('transitionend', function () {
-            //check if 2 cards are flipped to compare numbers
-            if( flippedCards > 1 ) {
-                if( cardsMatching() ) {
-                    disableCards();
-
-                    // Check if all cards are matched and user wins
-                    if( gameWin() ) {
-                        showSuccessMessage();
-                    }
-                } else {
-                    flipCardsDown();
-                }
-
-                flippedCards = 0;
-            }
-            inClickEvent = false;
-        });
+        canvas.flippedCards += 1;
 
         calculateUserRating();
         updateNumberMoves();
+    });
+
+    //Check cards after end of flip animation
+    canvas.addEventListener('transitionend', function () {
+        //ensure 2 cards are flipped in order to compare numbers
+        if( canvas.flippedCards > 1 ) {
+            if( cardsMatching() ) {
+                disableCards();
+
+                // Check if all cards are matched and user wins
+                if( gameWin() ) {
+                    showSuccessMessage();
+                }
+            } else {
+                flipCardsDown();
+            }
+
+            canvas.flippedCards = 0;
+        }
+        canvas.inClickEvent = false;
     });
 }
 
@@ -187,16 +203,22 @@ function showSuccessMessage() {
     document.getElementsByClassName('success-stars')[0].style.backgroundPositionY = document.getElementById('main-rating').style.backgroundPositionY;
     document.getElementsByClassName('start-again-btn')[0].addEventListener('click', function (event) {
         clearStats();
-        startGame();
+        setupGame();
     });
 }
 
 function clearStats() {
+    stopTimer();
     numberMoves = 0;
     timeElapsed = 0;
+    timer = null;
     document.getElementById('main-rating').style.backgroundPositionY = '0px';
     document.getElementsByClassName('timer')[0].textContent = 0;
     document.getElementsByClassName('moves')[0].textContent = 0;
+
+    let canvas = document.getElementsByClassName('canvas')[0];
+    canvas.flippedCards = 0;
+    canvas.inClickEvent = false;
 }
 
 function stopTimer() {
